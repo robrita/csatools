@@ -6,9 +6,10 @@
  * Converts an Excel (.xlsx) file to cards.json format for the Solution Catalog.
  *
  * Usage:
- *   npm run import-cards -- <input.xlsx>              # Default: src/data/cards.json
- *   npm run import-cards -- <input.xlsx> <output.json> # Custom output path
- *   node scripts/excel-to-cards.js <input.xlsx>       # Direct invocation
+ *   npm run import-cards                               # Default: cards-export.xlsx → src/data/cards.json
+ *   npm run import-cards -- <input.xlsx>               # Custom input → src/data/cards.json
+ *   npm run import-cards -- <input.xlsx> <output.json> # Custom input and output
+ *   node scripts/excel-to-cards.js <input.xlsx>        # Direct invocation
  *
  * @see specs/001-excel-to-cards/contracts/cli-contract.md
  */
@@ -18,9 +19,11 @@ import { dirname } from 'path';
 import XLSX from 'xlsx';
 
 // Constants
+const DEFAULT_INPUT_PATH = 'cards-export.xlsx';
 const DEFAULT_OUTPUT_PATH = 'src/data/cards.json';
 const MAX_ROWS = 1000;
 const REQUIRED_COLUMNS = ['title', 'description', 'categories', 'types', 'visibility', 'link'];
+const OPTIONAL_COLUMNS = ['hidden'];
 
 // Validation constants
 const ALLOWED_CATEGORIES = ['data', 'analytics', 'ai-application', 'ai-agent'];
@@ -34,17 +37,8 @@ const ALLOWED_VISIBILITY = ['public', 'private'];
 function parseArgs() {
   const args = process.argv.slice(2);
   
-  if (args.length === 0) {
-    console.error('Usage: node scripts/excel-to-cards.js <input.xlsx> [output.json]');
-    console.error('');
-    console.error('Arguments:');
-    console.error('  input.xlsx   Path to the Excel file to convert (required)');
-    console.error('  output.json  Path for output JSON file (default: src/data/cards.json)');
-    process.exit(1);
-  }
-  
   return {
-    inputPath: args[0],
+    inputPath: args[0] || DEFAULT_INPUT_PATH,
     outputPath: args[1] || DEFAULT_OUTPUT_PATH
   };
 }
@@ -111,9 +105,10 @@ function checkRowLimit(rows) {
  */
 function mapHeaders(headerRow) {
   const columnMap = {};
+  const allKnownColumns = [...REQUIRED_COLUMNS, ...OPTIONAL_COLUMNS];
   const normalizedHeaders = headerRow.map((h, i) => {
     const normalized = String(h || '').trim().toLowerCase();
-    if (REQUIRED_COLUMNS.includes(normalized)) {
+    if (allKnownColumns.includes(normalized)) {
       columnMap[normalized] = i;
     }
     return normalized;
@@ -152,7 +147,10 @@ function transformRow(row, columnMap) {
     return typeof val === 'string' ? val.trim() : String(val || '').trim();
   };
   
-  return {
+  const hiddenValue = getString('hidden').toLowerCase();
+  const isHidden = hiddenValue === 'true' || hiddenValue === 'yes';
+  
+  const card = {
     title: getString('title'),
     description: getString('description'),
     categories: splitAndNormalize(getString('categories')),
@@ -160,6 +158,12 @@ function transformRow(row, columnMap) {
     visibility: getString('visibility').toLowerCase(),
     link: getString('link')
   };
+  
+  if (isHidden) {
+    card.hidden = true;
+  }
+  
+  return card;
 }
 
 /**

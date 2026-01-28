@@ -1,0 +1,896 @@
+<!DOCTYPE html>
+<!-- saved from url=(0049)https://cuddly-adventure-lrgw45m.pages.github.io/ -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CSU Asset Catalog</title>
+<style>
+  :root{
+    --bg: #eaf3ff;
+    --panel: #ffffff;
+    --ink: #0b2e4e;
+    --text:#2d3a4a;
+    --muted:#5a6b7b;
+    --brand:#1f6fd6;
+    --line:#e6eefc;
+    --tag-bg:#eef5ff;
+    --tag-brd:#cfe0ff;
+    --shadow: 0 8px 22px rgba(7,34,73,.08);
+    --radius: 14px;
+  }
+
+  body{
+    margin:0; padding:28px 20px;
+    font-family:"Segoe UI", Roboto, Arial, sans-serif;
+    color:var(--text);
+    background: radial-gradient(1100px 550px at 20% -10%, #f6f9ff 0%, var(--bg) 60%), var(--bg);
+  }
+
+  .header{text-align:center;margin-bottom:18px;}
+  .title{margin:0;color:var(--ink);font-size:clamp(22px,3vw,32px);font-weight:700;}
+  .subtitle{margin:6px 0 0;color:var(--muted);font-size:14px;}
+
+  .layout{
+    max-width:1200px;margin:0 auto;
+    display:grid;gap:24px;
+    grid-template-columns:280px 1fr;
+  }
+  @media(max-width:880px){.layout{grid-template-columns:1fr;}}
+
+  .sidebar{
+    background:var(--panel);border:1px solid var(--line);
+    border-radius:var(--radius);box-shadow:var(--shadow);
+    padding:16px;position:sticky;top:24px;align-self:start;
+  }
+  .sidebar h2{margin:0 0 10px;font-size:16px;color:var(--ink);}
+  .filter-group{margin-top:12px;padding-top:12px;border-top:1px solid var(--line);}
+  .filter-title{font-size:13px;color:var(--muted);margin:0 0 8px;}
+  .checklist{display:grid;gap:8px;}
+  .checklist label{display:flex;align-items:center;gap:10px;font-size:14px;color:var(--text);}
+  .checklist input[type="checkbox"]{width:16px;height:16px;accent-color:var(--brand);}
+  .visibility-icon{width:16px;height:16px;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;color:var(--muted);}
+  .filters-actions{margin-top:12px;text-align:right;}
+  .link-reset{background:none;border:none;color:var(--brand);font-size:13px;cursor:pointer;}
+  .link-reset:hover{text-decoration:underline;}
+
+  .content{min-width:0;}
+  .topbar{margin-bottom:16px;}
+  .search-input{
+    width:100%;padding:12px 14px 12px 40px;border-radius:12px;border:1px solid var(--line);
+    background:var(--panel) url('data:image/svg+xml;utf8,<svg xmlns=http://www.w3.org/2000/svg width="18" height="18" viewBox="0 0 24 24" fill="%235a6b7b"><path d="M15.5 14h-.79l-.28-.27a6.471 6.471 0 001.48-4.23C15.91 6.01 12.9 3 9.45 3S3 6.01 3 9.5 6.01 16 9.45 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l4.25 4.25c.41.41 1.08.41 1.49 0 .41-.41.41-1.07 0-1.49L15.5 14zm-6.05 0C7.01 14 5 11.99 5 9.5S7.01 5 9.45 5s4.45 2.01 4.45 4.5S11.89 14 9.45 14z"/></svg>') no-repeat 12px center;
+    font-size:14px;color:var(--ink);box-shadow:var(--shadow);
+  }
+
+  .grid{display:grid;gap:20px;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));}
+  .card{
+    background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);
+    box-shadow:var(--shadow);padding:16px;display:flex;flex-direction:column;gap:10px;
+    transition:transform .12s ease,box-shadow .12s ease;
+  }
+  .card:hover{transform:translateY(-2px);box-shadow:0 10px 26px rgba(7,34,73,.12);}
+  .card h3{margin:0;color:var(--ink);font-size:18px;}
+  .desc{margin:0;font-size:14px;color:var(--text);}
+
+  /* Tags */
+  .tags{display:flex;flex-wrap:wrap;gap:8px;}
+  .tag{
+    padding:6px 10px;border-radius:999px;font-size:12px;font-weight:600;
+    display:flex;align-items:center;gap:5px;border:1px solid;
+  }
+  .tag-icon{width:14px;height:14px;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;}
+  .tag-icon svg{width:100%;height:100%;}
+  
+  /* Tag color variants */
+  .tag.code{background:#eef5ff;border-color:#cfe0ff;color:#104b9a;}
+  .tag.code .tag-icon{color:#104b9a;}
+  
+  .tag.design{background:#f0e8ff;border-color:#dcc7ff;color:#6b2fb6;}
+  .tag.design .tag-icon{color:#6b2fb6;}
+  
+  .tag.migration{background:#fff0e8;border-color:#ffd9c2;color:#a85a2a;}
+  .tag.migration .tag-icon{color:#a85a2a;}
+  
+  .tag.blog{background:#e8f9f0;border-color:#c7f0dd;color:#1d6e4f;}
+  .tag.blog .tag-icon{color:#1d6e4f;}
+  
+  .tag.documentation{background:#ffe8f0;border-color:#ffcde0;color:#a82563;}
+  .tag.documentation .tag-icon{color:#a82563;}
+  
+  .tag.levelup{background:#fef3e8;border-color:#fce4c2;color:#9b5e04;}
+  .tag.levelup .tag-icon{color:#9b5e04;}
+  
+  .tag.demo{background:#f0e8ff;border-color:#dcc7f0;color:#5a3a9e;}
+  .tag.demo .tag-icon{color:#5a3a9e;}
+
+  /* Meta row with proper anchor */
+  .meta{
+    margin-top:auto;display:flex;justify-content:space-between;align-items:center;
+    border-top:1px dashed var(--line);padding-top:10px;font-size:13px;gap:12px;
+  }
+  .category{font-weight:700;color:var(--brand);white-space:nowrap;}
+  .find-more{color:var(--brand);text-decoration:none;font-weight:600;margin-left:auto;white-space:nowrap;}
+  .find-more:hover{text-decoration:underline;}
+  .visibility-badge{display:flex;align-items:center;justify-content:center;width:20px;height:20px;color:var(--muted);cursor:pointer;}
+  .visibility-badge svg{width:16px;height:16px;stroke-width:2;}
+  .visibility-badge:hover{color:var(--brand);}
+
+  .hidden{display:none!important;}
+  .no-results{text-align:center;color:#6b7a90;font-size:14px;margin-top:16px;}
+</style>
+</head>
+<body>
+
+<header class="header">
+  <h1 class="title">
+CSU Technical Success Solutions Catalog</h1>
+  <p class="subtitle">Curated, reusable assets across Data, Analytics &amp; AI</p>
+</header>
+
+<div class="layout">
+  <aside class="sidebar">
+    <h2>Filters</h2>
+
+    <section class="filter-group">
+      <h3 class="filter-title">Asset Category</h3>
+      <div class="checklist">
+        <label><input type="checkbox" name="category" value="data"> <svg class="visibility-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="5" rx="9" ry="3"></ellipse><path d="M3 5v14a9 3 0 0 0 18 0V5"></path><path d="M3 12a9 3 0 0 0 18 0"></path></svg> Data</label>
+        <label><input type="checkbox" name="category" value="analytics"> <svg class="visibility-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"></rect><line x1="3" y1="15" x2="21" y2="15"></line><line x1="9" y1="15" x2="9" y2="21"></line><line x1="15" y1="15" x2="15" y2="21"></line><line x1="6" y1="9" x2="6" y2="12"></line><line x1="12" y1="7" x2="12" y2="12"></line><line x1="18" y1="5" x2="18" y2="12"></line></svg> Analytics</label>
+        <label><input type="checkbox" name="category" value="ai-application"> <svg class="visibility-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="3" ry="3"></rect><text x="12" y="16" text-anchor="middle" font-size="11" font-weight="bold" fill="currentColor">AI</text></svg> AI Application</label>
+        <label><input type="checkbox" name="category" value="ai-agent"> <svg class="visibility-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="2" r="1.5"></circle><line x1="12" y1="3.5" x2="12" y2="5"></line><rect x="6.5" y="5" width="11" height="5.5" rx="1"></rect><text x="12" y="9.5" text-anchor="middle" font-size="2.8" font-weight="bold" fill="currentColor">AI</text><circle cx="5.5" cy="7.5" r="1"></circle><circle cx="18.5" cy="7.5" r="1"></circle><line x1="5.5" y1="10.5" x2="5.5" y2="12"></line><line x1="12" y1="10.5" x2="12" y2="12"></line><line x1="18.5" y1="10.5" x2="18.5" y2="12"></line><rect x="6.5" y="12" width="11" height="4.5" rx="0.8"></rect><circle cx="6.5" cy="16.5" r="0.8"></circle><circle cx="12" cy="16.5" r="0.8"></circle><circle cx="17.5" cy="16.5" r="0.8"></circle></svg> AI Agent</label>
+      </div>
+    </section>
+
+    <section class="filter-group">
+      <h3 class="filter-title">Asset Type</h3>
+      <div class="checklist">
+        <label><input type="checkbox" name="type" value="code"> <svg class="visibility-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg> Code</label>
+        <label><input type="checkbox" name="type" value="design guidance"> <svg class="visibility-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="1"></circle><path d="M12 1v6m0 6v6"></path><path d="M4.22 4.22l4.24 4.24m2.12 2.12l4.24 4.24"></path><path d="M1 12h6m6 0h6"></path><path d="M4.22 19.78l4.24-4.24m2.12-2.12l4.24-4.24"></path></svg> Design Guidance</label>
+        <label><input type="checkbox" name="type" value="migration guidance"> <svg class="visibility-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10"></path></svg> Migration Guidance</label>
+        <label><input type="checkbox" name="type" value="public documentation"> <svg class="visibility-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"></path></svg> Public Documentation</label>
+        <label><input type="checkbox" name="type" value="blog"> <svg class="visibility-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"></path><line x1="10" y1="5" x2="14" y2="5"></line><line x1="10" y1="9" x2="14" y2="9"></line><line x1="10" y1="13" x2="14" y2="13"></line></svg> Blog</label>
+        <label><input type="checkbox" name="type" value="level up"> <svg class="visibility-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path></svg> Level Up</label>
+        <label><input type="checkbox" name="type" value="onlinedemo"> <svg class="visibility-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg> Demo (Online)</label>
+        <label><input type="checkbox" name="type" value="deployabledemo"> <svg class="visibility-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg> Demo (Deployable)</label>
+      </div>
+    </section>
+
+    <section class="filter-group">
+      <h3 class="filter-title">Asset Visibility</h3>
+      <div class="checklist">
+        <label><input type="checkbox" name="visibility" value="public"> <svg class="visibility-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg> Public (External) </label>
+        <label><input type="checkbox" name="visibility" value="private"> <svg class="visibility-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0110 0v4"></path></svg> Private (Internal MS)</label>
+      </div>
+    </section>
+
+    <div class="filters-actions">
+      <button id="resetFilters" class="link-reset" type="button">Clear filters</button>
+    </div>
+  </aside>
+
+  <section class="content">
+    <div class="topbar">
+      <input id="searchInput" class="search-input" type="search" placeholder="Search by title…" aria-label="Search by title">
+    </div>
+
+    <main class="grid" id="gallery"><article class="card" data-category="analytics" data-types="code, design guidance, level up" data-visibility="private">
+      <h3>Metadata Driven Data Ingestion Framework</h3>
+      <p class="desc">Framework for automating metadata driven ingestion pipelines for enterprise data solutions.</p>
+      <div class="tags"><span class="tag code"><span class="tag-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg></span>Code</span><span class="tag design"><span class="tag-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="1"></circle><path d="M12 1v6m0 6v6"></path><path d="M4.22 4.22l4.24 4.24m2.12 2.12l4.24 4.24"></path><path d="M1 12h6m6 0h6"></path><path d="M4.22 19.78l4.24-4.24m2.12-2.12l4.24-4.24"></path></svg></span>Design Guidance</span><span class="tag levelup"><span class="tag-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path></svg></span>Level Up</span></div>
+      <div class="meta">
+        <span class="category">Analytics</span>
+        <span class="visibility-badge" title="private"><svg class="visibility-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg></span>
+        <a class="find-more" href="https://github.com/customer-success-microsoft/Trinity-Framework/tree/main/Lakehouse%20Implementation/data_ingestion" target="_blank">Know More</a>
+      </div>
+    </article><article class="card" data-category="analytics" data-types="code, design guidance" data-visibility="private">
+      <h3>Metadata Driven Data Validation Framework</h3>
+      <p class="desc">Framework for automating metadata driven validation to validate the ingestion.</p>
+      <div class="tags"><span class="tag code"><span class="tag-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg></span>Code</span><span class="tag design"><span class="tag-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="1"></circle><path d="M12 1v6m0 6v6"></path><path d="M4.22 4.22l4.24 4.24m2.12 2.12l4.24 4.24"></path><path d="M1 12h6m6 0h6"></path><path d="M4.22 19.78l4.24-4.24m2.12-2.12l4.24-4.24"></path></svg></span>Design Guidance</span></div>
+      <div class="meta">
+        <span class="category">Analytics</span>
+        <span class="visibility-badge" title="private"><svg class="visibility-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg></span>
+        <a class="find-more" href="https://github.com/customer-success-microsoft/Trinity-Framework/tree/main/Lakehouse%20Implementation/data_validation" target="_blank">Know More</a>
+      </div>
+    </article><article class="card" data-category="analytics" data-types="code" data-visibility="private">
+      <h3>Data Profiling - Understand your data</h3>
+      <p class="desc">Code to help understand data by analyzing data patterns, distributions, and anomalies.</p>
+      <div class="tags"><span class="tag code"><span class="tag-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg></span>Code</span></div>
+      <div class="meta">
+        <span class="category">Analytics</span>
+        <span class="visibility-badge" title="private"><svg class="visibility-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg></span>
+        <a class="find-more" href="https://github.com/customer-success-microsoft/Trinity-Framework/tree/main/Lakehouse%20Implementation/data_profiling" target="_blank">Know More</a>
+      </div>
+    </article><article class="card" data-category="data" data-types="code, migration guidance" data-visibility="private">
+      <h3>NoSQL Migration - Migrating to Azure Cosmos DB</h3>
+      <p class="desc">Migrating from NoSQL Databases to Azure Cosmos DB e.g. Native Mongo to vCore, Cassandra to Cassandra MI</p>
+      <div class="tags"><span class="tag code"><span class="tag-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg></span>Code</span><span class="tag migration"><span class="tag-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10"></path></svg></span>Migration Guidance</span></div>
+      <div class="meta">
+        <span class="category">Data</span>
+        <span class="visibility-badge" title="private"><svg class="visibility-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg></span>
+        <a class="find-more" href="https://github.com/customer-success-microsoft/Trinity-Framework/blob/main/NoSQL%20Data%20Migration/README.md" target="_blank">Know More</a>
+      </div>
+    </article><article class="card" data-category="analytics" data-types="code, design guidance" data-visibility="private">
+      <h3>Metadata Driven Transformation Framework</h3>
+      <p class="desc">Metadata driven framework for automating the transformation and enrichment for the lakehouse.</p>
+      <div class="tags"><span class="tag code"><span class="tag-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg></span>Code</span><span class="tag design"><span class="tag-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="1"></circle><path d="M12 1v6m0 6v6"></path><path d="M4.22 4.22l4.24 4.24m2.12 2.12l4.24 4.24"></path><path d="M1 12h6m6 0h6"></path><path d="M4.22 19.78l4.24-4.24m2.12-2.12l4.24-4.24"></path></svg></span>Design Guidance</span></div>
+      <div class="meta">
+        <span class="category">Analytics</span>
+        <span class="visibility-badge" title="private"><svg class="visibility-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg></span>
+        <a class="find-more" href="https://github.com/customer-success-microsoft/Trinity-Framework/tree/main/Lakehouse%20Implementation" target="_blank">Know More</a>
+      </div>
+    </article><article class="card" data-category="analytics" data-types="code, migration guidance" data-visibility="private">
+      <h3>P to F SKU Migration Guidance</h3>
+      <p class="desc">Discovery script, guidance for migrating for various Power BI P to F SKU for different scenarions e.g. .</p>
+      <div class="tags"><span class="tag code"><span class="tag-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg></span>Code</span><span class="tag migration"><span class="tag-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10"></path></svg></span>Migration Guidance</span></div>
+      <div class="meta">
+        <span class="category">Analytics</span>
+        <span class="visibility-badge" title="private"><svg class="visibility-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg></span>
+        <a class="find-more" href="https://github.com/customer-success-microsoft/Trinity-Framework/tree/main/Power%20BI%20P%20SKU%20to%20Fabric%20F%20SKU%20Migration" target="_blank">Know More</a>
+      </div>
+    </article><article class="card" data-category="data, analytics" data-types="code, migration guidance" data-visibility="private">
+      <h3>AWS to Azure Migration Guide</h3>
+      <p class="desc">Discovery Scripts, Questionaire, Seamless migration from AWS to Azure covering various databases &amp; Analytics.</p>
+      <div class="tags"><span class="tag code"><span class="tag-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg></span>Code</span><span class="tag migration"><span class="tag-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10"></path></svg></span>Migration Guidance</span></div>
+      <div class="meta">
+        <span class="category">Data</span><span class="category">Analytics</span>
+        <span class="visibility-badge" title="private"><svg class="visibility-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg></span>
+        <a class="find-more" href="https://github.com/customer-success-microsoft/Trinity-Framework/blob/main/Aws%20to%20Azure%20Migration/README.md" target="_blank">Know More</a>
+      </div>
+    </article><article class="card" data-category="analytics" data-types="design guidance" data-visibility="private">
+      <h3>Designing Medallion Architecture</h3>
+      <p class="desc">Best practices and guidance while designing a medalian architechture in Azure and Fabric.</p>
+      <div class="tags"><span class="tag design"><span class="tag-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="1"></circle><path d="M12 1v6m0 6v6"></path><path d="M4.22 4.22l4.24 4.24m2.12 2.12l4.24 4.24"></path><path d="M1 12h6m6 0h6"></path><path d="M4.22 19.78l4.24-4.24m2.12-2.12l4.24-4.24"></path></svg></span>Design Guidance</span></div>
+      <div class="meta">
+        <span class="category">Analytics</span>
+        <span class="visibility-badge" title="private"><svg class="visibility-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg></span>
+        <a class="find-more" href="https://github.com/customer-success-microsoft/Trinity-Framework/tree/main/Designing%20Medallion%20Architecture" target="_blank">Know More</a>
+      </div>
+    </article><article class="card" data-category="analytics" data-types="migration guidance" data-visibility="private">
+      <h3>Tableau to Power BI Migration</h3>
+      <p class="desc">Best practices and guidance while designing a medalian architechture in Azure and Fabric.</p>
+      <div class="tags"><span class="tag migration"><span class="tag-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10"></path></svg></span>Migration Guidance</span></div>
+      <div class="meta">
+        <span class="category">Analytics</span>
+        <span class="visibility-badge" title="private"><svg class="visibility-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg></span>
+        <a class="find-more" href="https://github.com/customer-success-microsoft/Trinity-Framework/blob/main/Tableau%20to%20Power%20BI%20Migration/README.md" target="_blank">Know More</a>
+      </div>
+    </article><article class="card" data-category="analytics" data-types="code" data-visibility="private">
+      <h3>Datamart Backup End Of Life (EOL)</h3>
+      <p class="desc">Migrating Power BI Datamart to Fabric Datawarehouse due to Power BI End of Life.</p>
+      <div class="tags"><span class="tag code"><span class="tag-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg></span>Code</span></div>
+      <div class="meta">
+        <span class="category">Analytics</span>
+        <span class="visibility-badge" title="private"><svg class="visibility-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg></span>
+        <a class="find-more" href="https://github.com/customer-success-microsoft/Trinity-Framework/blob/main/Utility/Datamart%20backup%20EOL/README.md" target="_blank">Know More</a>
+      </div>
+    </article><article class="card" data-category="data" data-types="code" data-visibility="private">
+      <h3>Monitoring Utility for Azure Database for PostgreSQL</h3>
+      <p class="desc">Monitoring Azure PostgreSQL using dashboards though a single pane of glass.</p>
+      <div class="tags"><span class="tag code"><span class="tag-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg></span>Code</span></div>
+      <div class="meta">
+        <span class="category">Data</span>
+        <span class="visibility-badge" title="private"><svg class="visibility-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg></span>
+        <a class="find-more" href="https://github.com/customer-success-microsoft/Trinity-Framework/blob/main/Utility/Monitoring%20utility%20for%20Azure%20database%20for%20PostgreSQL/README.md" target="_blank">Know More</a>
+      </div>
+    </article><article class="card" data-category="analytics" data-types="code" data-visibility="private">
+      <h3>PII Identification and Annonymization</h3>
+      <p class="desc">Code for identifying PII data and anomyzing using different statergy.</p>
+      <div class="tags"><span class="tag code"><span class="tag-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg></span>Code</span></div>
+      <div class="meta">
+        <span class="category">Analytics</span>
+        <span class="visibility-badge" title="private"><svg class="visibility-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg></span>
+        <a class="find-more" href="https://cuddly-adventure-lrgw45m.pages.github.io/" target="_blank">Know More</a>
+      </div>
+    </article><article class="card" data-category="analytics" data-types="blog" data-visibility="public">
+      <h3>Metadata Driven Data Ingestion Framework in Fabric - Blog</h3>
+      <p class="desc">Walk through the key components of metadata driven ingestion pipelines for enterprise data solutions.</p>
+      <div class="tags"><span class="tag blog"><span class="tag-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"></path><line x1="10" y1="5" x2="14" y2="5"></line><line x1="10" y1="9" x2="14" y2="9"></line><line x1="10" y1="13" x2="14" y2="13"></line></svg></span>Blog</span></div>
+      <div class="meta">
+        <span class="category">Analytics</span>
+        <span class="visibility-badge" title="public"><svg class="visibility-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg></span>
+        <a class="find-more" href="https://blog.fabric.microsoft.com/en-us/blog/demystifying-data-ingestion-in-fabric-fundamental-components-for-ingesting-data-into-a-fabric-lakehouse-using-fabric-data-pipelines" target="_blank">Know More</a>
+      </div>
+    </article><article class="card" data-category="analytics" data-types="blog" data-visibility="public">
+      <h3>Metadata Driven Data Lakehouse implementation in Fabric - Blog</h3>
+      <p class="desc">Walk through of end-to-end metadata-driven Lakehouse implemntation using Microsoft Fabric.</p>
+      <div class="tags"><span class="tag blog"><span class="tag-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"></path><line x1="10" y1="5" x2="14" y2="5"></line><line x1="10" y1="9" x2="14" y2="9"></line><line x1="10" y1="13" x2="14" y2="13"></line></svg></span>Blog</span></div>
+      <div class="meta">
+        <span class="category">Analytics</span>
+        <span class="visibility-badge" title="public"><svg class="visibility-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg></span>
+        <a class="find-more" href="https://blog.fabric.microsoft.com/en-us/blog/playbook-for-metadata-driven-lakehouse-implementation-in-microsoft-fabric" target="_blank">Know More</a>
+      </div>
+    </article><article class="card" data-category="analytics" data-types="blog" data-visibility="public">
+      <h3>PII Detection and Anonymization with PySpark on Microsoft Fabric - Blog</h3>
+      <p class="desc">explores how to build PII detection and anonymization using PySpark, Microsoft Presidio and Faker library.</p>
+      <div class="tags"><span class="tag blog"><span class="tag-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"></path><line x1="10" y1="5" x2="14" y2="5"></line><line x1="10" y1="9" x2="14" y2="9"></line><line x1="10" y1="13" x2="14" y2="13"></line></svg></span>Blog</span></div>
+      <div class="meta">
+        <span class="category">Analytics</span>
+        <span class="visibility-badge" title="public"><svg class="visibility-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg></span>
+        <a class="find-more" href="https://blog.fabric.microsoft.com/en-us/blog/privacy-by-design-pii-detection-and-anonymization-with-pyspark-on-microsoft-fabric" target="_blank">Know More</a>
+      </div>
+    </article><article class="card" data-category="data" data-types="public documentation" data-visibility="public">
+      <h3>Migrate data from DynamoDB to Azure Cosmos DB for NoSQL</h3>
+      <p class="desc">Data migration from Amazon DynamoDB to Azure Cosmos DB for NoSQL</p>
+      <div class="tags"><span class="tag documentation"><span class="tag-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"></path></svg></span>Public Documentation</span></div>
+      <div class="meta">
+        <span class="category">Data</span>
+        <span class="visibility-badge" title="public"><svg class="visibility-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg></span>
+        <a class="find-more" href="https://learn.microsoft.com/en-us/azure/cosmos-db/nosql/dynamodb-data-migration-cosmos-db" target="_blank">Know More</a>
+      </div>
+    </article><article class="card" data-category="data" data-types="public documentation" data-visibility="public">
+      <h3>Connection pooling strategy for Azure PostgreSQL flexible server using PgBouncer</h3>
+      <p class="desc">Discuss different approaches &amp; strategies to use connection pooling using PgBouncer</p>
+      <div class="tags"><span class="tag documentation"><span class="tag-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"></path></svg></span>Public Documentation</span></div>
+      <div class="meta">
+        <span class="category">Data</span>
+        <span class="visibility-badge" title="public"><svg class="visibility-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg></span>
+        <a class="find-more" href="https://learn.microsoft.com/en-us/azure/postgresql/flexible-server/concepts-connection-pooling-best-practices" target="_blank">Know More</a>
+      </div>
+    </article><article class="card" data-category="data" data-types="blog" data-visibility="public">
+      <h3>Migrating from Amazon RDS to Azure Database for PostgreSQL</h3>
+      <p class="desc">Discuss different migration approaches &amp; considerations for migrating from Amazon RDS to Azure PostgreSQL.</p>
+      <div class="tags"><span class="tag blog"><span class="tag-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"></path><line x1="10" y1="5" x2="14" y2="5"></line><line x1="10" y1="9" x2="14" y2="9"></line><line x1="10" y1="13" x2="14" y2="13"></line></svg></span>Blog</span></div>
+      <div class="meta">
+        <span class="category">Data</span>
+        <span class="visibility-badge" title="public"><svg class="visibility-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg></span>
+        <a class="find-more" href="https://techcommunity.microsoft.com/blog/adforpostgresql/seamless-shift-migrating-from-amazon-rds-for-postgresql-to-azure-database-for-po/3997951" target="_blank">Know More</a>
+      </div>
+    </article><article class="card" data-category="data" data-types="blog" data-visibility="public">
+      <h3>Migrating from Amazon RDS for MySQL to Azure Database for MySQL</h3>
+      <p class="desc">Discuss different migration approaches &amp; considerations for migrating from Amazon RDS to Azure MySQL.</p>
+      <div class="tags"><span class="tag blog"><span class="tag-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"></path><line x1="10" y1="5" x2="14" y2="5"></line><line x1="10" y1="9" x2="14" y2="9"></line><line x1="10" y1="13" x2="14" y2="13"></line></svg></span>Blog</span></div>
+      <div class="meta">
+        <span class="category">Data</span>
+        <span class="visibility-badge" title="public"><svg class="visibility-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg></span>
+        <a class="find-more" href="https://techcommunity.microsoft.com/blog/adformysql/migrating-from-aws-rds-for-mysql-to-azure-database-for-mysql---considerations-an/3755397" target="_blank">Know More</a>
+      </div>
+    </article><article class="card" data-category="data" data-types="blog" data-visibility="public">
+      <h3>Migrating from Amazon RDS to Azure Database for MySQL online using Azure DMS</h3>
+      <p class="desc">Detailed steps involved in performing an online migration from Amazon RDS for MySQL to Azure Database for MySQL using Microsoft DMS.</p>
+      <div class="tags"><span class="tag blog"><span class="tag-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"></path><line x1="10" y1="5" x2="14" y2="5"></line><line x1="10" y1="9" x2="14" y2="9"></line><line x1="10" y1="13" x2="14" y2="13"></line></svg></span>Blog</span></div>
+      <div class="meta">
+        <span class="category">Data</span>
+        <span class="visibility-badge" title="public"><svg class="visibility-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg></span>
+        <a class="find-more" href="https://techcommunity.microsoft.com/blog/adformysql/migrating-from-amazon-rds-for-mysql-to-azure-database-for-mysql-online-using-azu/3996417" target="_blank">Know More</a>
+      </div>
+    </article><article class="card" data-category="ai-application" data-types="code" data-visibility="public">
+      <h3>GPT-RAG</h3>
+      <p class="desc">Enterprise-grade GPT assistant framework using Retrieval-Augmented Generation to ground responses on your data. Provides a scalable, secure architecture combining Azure OpenAI and enterprise search. Ideal for knowledge chatbots, support automation, and analytical insights.</p>
+      <div class="tags"><span class="tag code"><span class="tag-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg></span>Code</span></div>
+      <div class="meta">
+        <span class="category">AI Application</span>
+        <span class="visibility-badge" title="public"><svg class="visibility-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg></span>
+        <a class="find-more" href="https://github.com/Azure/gpt-rag" target="_blank">Know More</a>
+      </div>
+    </article><article class="card" data-category="ai-application" data-types="code" data-visibility="public">
+      <h3>LLM Fine-Tuning on Azure</h3>
+      <p class="desc">End‑to‑end toolkit for customizing Azure OpenAI or open‑source LLMs using domain‑specific data. Includes no‑code and code paths, evaluation scripts, and deployment pipelines. Enables safer and more accurate tailored model performance for enterprise workflows.</p>
+      <div class="tags"><span class="tag code"><span class="tag-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg></span>Code</span></div>
+      <div class="meta">
+        <span class="category">AI Application</span>
+        <span class="visibility-badge" title="public"><svg class="visibility-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg></span>
+        <a class="find-more" href="https://github.com/Azure/LLM-Fine-Tuning-Azure" target="_blank">Know More</a>
+      </div>
+    </article><article class="card" data-category="ai-application" data-types="code" data-visibility="public">
+      <h3>Document Processing Accelerator</h3>
+      <p class="desc">Modular pipeline for extracting, classifying, summarizing, and indexing unstructured documents at scale. Integrates OCR, Azure AI, and search for automated ingestion and retrieval. Reduces manual processing friction across claims, invoices, contracts, and records.</p>
+      <div class="tags"><span class="tag code"><span class="tag-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg></span>Code</span></div>
+      <div class="meta">
+        <span class="category">AI Application</span>
+        <span class="visibility-badge" title="public"><svg class="visibility-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg></span>
+        <a class="find-more" href="https://github.com/Azure/doc-proc-solution-accelerator/" target="_blank">Know More</a>
+      </div>
+    </article><article class="card" data-category="ai-application" data-types="code" data-visibility="public">
+      <h3>AI Landing Zones</h3>
+      <p class="desc">Secure, standardized foundation for deploying AI workloads using Well‑Architected and Cloud Adoption Framework guidance. Automates infra provisioning, governance, networking, and compliance. Accelerates production‑ready AI environments across industries.</p>
+      <div class="tags"><span class="tag code"><span class="tag-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg></span>Code</span></div>
+      <div class="meta">
+        <span class="category">AI Application</span>
+        <span class="visibility-badge" title="public"><svg class="visibility-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg></span>
+        <a class="find-more" href="https://github.com/Azure/AI-Landing-Zones/tree/main" target="_blank">Know More</a>
+      </div>
+    </article><article class="card" data-category="ai-application" data-types="code" data-visibility="public">
+      <h3>Copilot Studio</h3>
+      <p class="desc">Unified approach to building secure, scalable enterprise copilots using low‑code Copilot Studio and Azure AI services. Supports rapid prototyping, orchestration, and integration with enterprise systems. Enables fusion teams to deliver task‑specific copilots quickly.</p>
+      <div class="tags"><span class="tag code"><span class="tag-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg></span>Code</span></div>
+      <div class="meta">
+        <span class="category">AI Application</span>
+        <span class="visibility-badge" title="public"><svg class="visibility-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg></span>
+        <a class="find-more" href="https://github.com/Azure/Copilot-Studio-and-Azure/tree/main" target="_blank">Know More</a>
+      </div>
+    </article><article class="card" data-category="ai-agent" data-types="code" data-visibility="public">
+      <h3>Multi‑Agent Banking Assistant (Agent Sample)</h3>
+      <p class="desc">Conversational multi‑agent banking assistant integrating securely with core systems. Supports account inquiries, transactions, payments, and dispute initiation. Enables compliant and extensible digital banking experiences.</p>
+      <div class="tags"><span class="tag code"><span class="tag-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg></span>Code</span></div>
+      <div class="meta">
+        <span class="category">AI Agent</span>
+        <span class="visibility-badge" title="public"><svg class="visibility-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg></span>
+        <a class="find-more" href="https://github.com/Azure-Samples/agent-openai-python-banking-assistant" target="_blank">Know More</a>
+      </div>
+    </article><article class="card" data-category="analytics" data-types="design guidance, level up" data-visibility="private">
+      <h3>Power BI P SKU to Fabric F SKU Migration LevelUp</h3>
+      <p class="desc">A comprehensive guide covering the different types of migration scenarios for P to F SKU migration, and how to scope and plan for each scenario end-to-end, including cross-tenant migration</p>
+      <div class="tags"><span class="tag design"><span class="tag-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="1"></circle><path d="M12 1v6m0 6v6"></path><path d="M4.22 4.22l4.24 4.24m2.12 2.12l4.24 4.24"></path><path d="M1 12h6m6 0h6"></path><path d="M4.22 19.78l4.24-4.24m2.12-2.12l4.24-4.24"></path></svg></span>Design Guidance</span><span class="tag levelup"><span class="tag-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path></svg></span>Level Up</span></div>
+      <div class="meta">
+        <span class="category">Analytics</span>
+        <span class="visibility-badge" title="private"><svg class="visibility-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg></span>
+        <a class="find-more" href="https://github.com/customer-success-microsoft/Trinity-Framework/tree/main/Power%20BI%20P%20SKU%20to%20Fabric%20F%20SKU%20Migration/P%20to%20F%20SKU%20LevelUp" target="_blank">Know More</a>
+      </div>
+    </article><article class="card" data-category="ai-application, data" data-types="deployabledemo" data-visibility="private">
+      <h3>Hotel Search &amp; Recommendation - Cosmos DB + Azure OpenAI Demo (Deployable)</h3>
+      <p class="desc">Demo showcasing how modern databases can be enhanced with AI-driven search, relevance, and recommendations to deliver richer, more personalized discovery experiences.</p>
+      <div class="tags"><span class="tag demo"><span class="tag-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg></span>Demo (Deployable)</span></div>
+      <div class="meta">
+        <span class="category">AI Application</span><span class="category">Data</span>
+        <span class="visibility-badge" title="private"><svg class="visibility-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg></span>
+        <a class="find-more" href="https://aka.ms/hotelsearchcosmosaideployabledemo" target="_blank">Know More</a>
+      </div>
+    </article><article class="card" data-category="ai-application, data" data-types="onlinedemo" data-visibility="public">
+      <h3>Hotel Search &amp; Recommendation - Cosmos DB + Azure OpenAI Demo (Online)</h3>
+      <p class="desc">Online Demo showcasing how modern databases can be enhanced with AI-driven search, relevance, and recommendations to deliver richer, more personalized discovery experiences.</p>
+      <div class="tags"><span class="tag demo"><span class="tag-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg></span>Demo (Online)</span></div>
+      <div class="meta">
+        <span class="category">AI Application</span><span class="category">Data</span>
+        <span class="visibility-badge" title="public"><svg class="visibility-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg></span>
+        <a class="find-more" href="https://aka.ms/hotelsearchcosmosaionlinedemo" target="_blank">Know More</a>
+      </div>
+    </article><article class="card" data-category="ai-agent" data-types="onlinedemo" data-visibility="public">
+      <h3>Investment Analysis Multi-Agent System (Online)</h3>
+      <p class="desc">Multi‑agent investment analysis workflow using the Microsoft Agent Framework. Automates due‑diligence synthesis, competitive analysis, and risk scoring. Produces investor‑ready summaries for PE/VC, corporate development, and strategic finance teams.</p>
+      <div class="tags"><span class="tag demo"><span class="tag-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg></span>Demo (Online)</span></div>
+      <div class="meta">
+        <span class="category">AI Agent</span>
+        <span class="visibility-badge" title="public"><svg class="visibility-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg></span>
+        <a class="find-more" href="https://aka.ms/investaionlinedemo" target="_blank">Know More</a>
+      </div>
+    </article><article class="card" data-category="ai-agent" data-types="deployabledemo" data-visibility="public">
+      <h3>Investment Analysis Multi-Agent System (Deployable)</h3>
+      <p class="desc">Multi‑agent investment analysis workflow using the Microsoft Agent Framework. Automates due‑diligence synthesis, competitive analysis, and risk scoring. Produces investor‑ready summaries for PE/VC, corporate development, and strategic finance teams.</p>
+      <div class="tags"><span class="tag demo"><span class="tag-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg></span>Demo (Deployable)</span></div>
+      <div class="meta">
+        <span class="category">AI Agent</span>
+        <span class="visibility-badge" title="public"><svg class="visibility-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg></span>
+        <a class="find-more" href="https://github.com/Azure-Samples/Agentic-AI-Investment-Analysis-Sample" target="_blank">Know More</a>
+      </div>
+    </article></main>
+
+    <p id="noResults" class="no-results hidden" role="status" aria-live="polite">
+      No results match your filters.
+    </p>
+  </section>
+</div>
+
+<script>
+// ====================================================================
+// CARD DATA - Add, remove, or modify cards in this array only
+// ====================================================================
+const cardsData = [
+  {
+    title: "Metadata Driven Data Ingestion Framework",
+    description: "Framework for automating metadata driven ingestion pipelines for enterprise data solutions.",
+    categories: ["analytics"],
+    types: ["code", "design guidance", "level up"],
+    visibility: "private",
+    link: "https://github.com/customer-success-microsoft/Trinity-Framework/tree/main/Lakehouse%20Implementation/data_ingestion"
+  },
+  {
+    title: "Metadata Driven Data Validation Framework",
+    description: "Framework for automating metadata driven validation to validate the ingestion.",
+    categories: ["analytics"],
+    types: ["code", "design guidance"],
+    visibility: "private",
+    link: "https://github.com/customer-success-microsoft/Trinity-Framework/tree/main/Lakehouse%20Implementation/data_validation"
+  },
+  {
+    title: "Data Profiling - Understand your data",
+    description: "Code to help understand data by analyzing data patterns, distributions, and anomalies.",
+    categories: ["analytics"],
+    types: ["code"],
+    visibility: "private",
+    link: "https://github.com/customer-success-microsoft/Trinity-Framework/tree/main/Lakehouse%20Implementation/data_profiling"
+  },
+  {
+    title: "NoSQL Migration - Migrating to Azure Cosmos DB",
+    description: "Migrating from NoSQL Databases to Azure Cosmos DB e.g. Native Mongo to vCore, Cassandra to Cassandra MI",
+    categories: ["data"],
+    types: ["code", "migration guidance"],
+    visibility: "private",
+    link: "https://github.com/customer-success-microsoft/Trinity-Framework/blob/main/NoSQL%20Data%20Migration/README.md"
+  },
+  {
+    title: "Metadata Driven Transformation Framework",
+    description: "Metadata driven framework for automating the transformation and enrichment for the lakehouse.",
+    categories: ["analytics"],
+    types: ["code", "design guidance"],
+    visibility: "private",
+    link: "https://github.com/customer-success-microsoft/Trinity-Framework/tree/main/Lakehouse%20Implementation"
+  },
+  {
+    title: "P to F SKU Migration Guidance",
+    description: "Discovery script, guidance for migrating for various Power BI P to F SKU for different scenarions e.g. .",
+    categories: ["analytics"],
+    types: ["code", "migration guidance"],
+    visibility: "private",
+    link: "https://github.com/customer-success-microsoft/Trinity-Framework/tree/main/Power%20BI%20P%20SKU%20to%20Fabric%20F%20SKU%20Migration"
+  },
+  {
+    title: "AWS to Azure Migration Guide",
+    description: "Discovery Scripts, Questionaire, Seamless migration from AWS to Azure covering various databases & Analytics.",
+    categories: ["data", "analytics"],
+    types: ["code", "migration guidance"],
+    visibility: "private",
+    link: "https://github.com/customer-success-microsoft/Trinity-Framework/blob/main/Aws%20to%20Azure%20Migration/README.md"
+  },
+  {
+    title: "Designing Medallion Architecture",
+    description: "Best practices and guidance while designing a medalian architechture in Azure and Fabric.",
+    categories: ["analytics"],
+    types: ["design guidance"],
+    visibility: "private",
+    link: "https://github.com/customer-success-microsoft/Trinity-Framework/tree/main/Designing%20Medallion%20Architecture"
+  },
+  {
+    title: "Tableau to Power BI Migration",
+    description: "Best practices and guidance while designing a medalian architechture in Azure and Fabric.",
+    categories: ["analytics"],
+    types: ["migration guidance"],
+    visibility: "private",
+    link: "https://github.com/customer-success-microsoft/Trinity-Framework/blob/main/Tableau%20to%20Power%20BI%20Migration/README.md"
+  },
+  {
+    title: "Datamart Backup End Of Life (EOL)",
+    description: "Migrating Power BI Datamart to Fabric Datawarehouse due to Power BI End of Life.",
+    categories: ["analytics"],
+    types: ["code"],
+    visibility: "private",
+    link: "https://github.com/customer-success-microsoft/Trinity-Framework/blob/main/Utility/Datamart%20backup%20EOL/README.md"
+  },
+  {
+    title: "Monitoring Utility for Azure Database for PostgreSQL",
+    description: "Monitoring Azure PostgreSQL using dashboards though a single pane of glass.",
+    categories: ["data"],
+    types: ["code"],
+    visibility: "private",
+    link: "https://github.com/customer-success-microsoft/Trinity-Framework/blob/main/Utility/Monitoring%20utility%20for%20Azure%20database%20for%20PostgreSQL/README.md"
+  },
+  {
+    title: "PII Identification and Annonymization",
+    description: "Code for identifying PII data and anomyzing using different statergy.",
+    categories: ["analytics"],
+    types: ["code"],
+    visibility: "private",
+    link: ""
+  },
+  {
+    title: "Metadata Driven Data Ingestion Framework in Fabric - Blog",
+    description: "Walk through the key components of metadata driven ingestion pipelines for enterprise data solutions.",
+    categories: ["analytics"],
+    types: ["blog"],
+    visibility: "public",
+    link: "https://blog.fabric.microsoft.com/en-us/blog/demystifying-data-ingestion-in-fabric-fundamental-components-for-ingesting-data-into-a-fabric-lakehouse-using-fabric-data-pipelines"
+  },
+  {
+    title: "Metadata Driven Data Lakehouse implementation in Fabric - Blog",
+    description: "Walk through of end-to-end metadata-driven Lakehouse implemntation using Microsoft Fabric.",
+    categories: ["analytics"],
+    types: ["blog"],
+    visibility: "public",
+    link: "https://blog.fabric.microsoft.com/en-us/blog/playbook-for-metadata-driven-lakehouse-implementation-in-microsoft-fabric"
+  },
+  {
+    title: "PII Detection and Anonymization with PySpark on Microsoft Fabric - Blog",
+    description: "explores how to build PII detection and anonymization using PySpark, Microsoft Presidio and Faker library.",
+    categories: ["analytics"],
+    types: ["blog"],
+    visibility: "public",
+    link: "https://blog.fabric.microsoft.com/en-us/blog/privacy-by-design-pii-detection-and-anonymization-with-pyspark-on-microsoft-fabric"
+  },
+  {
+    title: "Migrate data from DynamoDB to Azure Cosmos DB for NoSQL",
+    description: "Data migration from Amazon DynamoDB to Azure Cosmos DB for NoSQL",
+    categories: ["data"],
+    types: ["public documentation"],
+    visibility: "public",
+    link: "https://learn.microsoft.com/en-us/azure/cosmos-db/nosql/dynamodb-data-migration-cosmos-db"
+  },
+  {
+    title: "Connection pooling strategy for Azure PostgreSQL flexible server using PgBouncer",
+    description: "Discuss different approaches & strategies to use connection pooling using PgBouncer",
+    categories: ["data"],
+    types: ["public documentation"],
+    visibility: "public",
+    link: "https://learn.microsoft.com/en-us/azure/postgresql/flexible-server/concepts-connection-pooling-best-practices"
+  },
+  {
+    title: "Migrating from Amazon RDS to Azure Database for PostgreSQL",
+    description: "Discuss different migration approaches & considerations for migrating from Amazon RDS to Azure PostgreSQL.",
+    categories: ["data"],
+    types: ["blog"],
+    visibility: "public",
+    link: "https://techcommunity.microsoft.com/blog/adforpostgresql/seamless-shift-migrating-from-amazon-rds-for-postgresql-to-azure-database-for-po/3997951"
+  },
+  {
+    title: "Migrating from Amazon RDS for MySQL to Azure Database for MySQL",
+    description: "Discuss different migration approaches & considerations for migrating from Amazon RDS to Azure MySQL.",
+    categories: ["data"],
+    types: ["blog"],
+    visibility: "public",
+    link: "https://techcommunity.microsoft.com/blog/adformysql/migrating-from-aws-rds-for-mysql-to-azure-database-for-mysql---considerations-an/3755397"
+  },
+  {
+    title: "Migrating from Amazon RDS to Azure Database for MySQL online using Azure DMS",
+    description: "Detailed steps involved in performing an online migration from Amazon RDS for MySQL to Azure Database for MySQL using Microsoft DMS.",
+    categories: ["data"],
+    types: ["blog"],
+    visibility: "public",
+    link: "https://techcommunity.microsoft.com/blog/adformysql/migrating-from-amazon-rds-for-mysql-to-azure-database-for-mysql-online-using-azu/3996417"
+  },
+  {
+    title: "GPT-RAG",
+    description: "Enterprise-grade GPT assistant framework using Retrieval-Augmented Generation to ground responses on your data. Provides a scalable, secure architecture combining Azure OpenAI and enterprise search. Ideal for knowledge chatbots, support automation, and analytical insights.",
+    categories: ["ai-application"],
+    types: ["code"],
+    visibility: "public",
+    link: "https://github.com/Azure/gpt-rag"
+  },
+  {
+    title: "LLM Fine-Tuning on Azure",
+    description: "End‑to‑end toolkit for customizing Azure OpenAI or open‑source LLMs using domain‑specific data. Includes no‑code and code paths, evaluation scripts, and deployment pipelines. Enables safer and more accurate tailored model performance for enterprise workflows.",
+    categories: ["ai-application"],
+    types: ["code"],
+    visibility: "public",
+    link: "https://github.com/Azure/LLM-Fine-Tuning-Azure"
+  },
+  {
+    title: "Document Processing Accelerator",
+    description: "Modular pipeline for extracting, classifying, summarizing, and indexing unstructured documents at scale. Integrates OCR, Azure AI, and search for automated ingestion and retrieval. Reduces manual processing friction across claims, invoices, contracts, and records.",
+    categories: ["ai-application"],
+    types: ["code"],
+    visibility: "public",
+    link: "https://github.com/Azure/doc-proc-solution-accelerator/"
+  },
+  {
+    title: "AI Landing Zones",
+    description: "Secure, standardized foundation for deploying AI workloads using Well‑Architected and Cloud Adoption Framework guidance. Automates infra provisioning, governance, networking, and compliance. Accelerates production‑ready AI environments across industries.",
+    categories: ["ai-application"],
+    types: ["code"],
+    visibility: "public",
+    link: "https://github.com/Azure/AI-Landing-Zones/tree/main"
+  },
+  {
+    title: "Copilot Studio",
+    description: "Unified approach to building secure, scalable enterprise copilots using low‑code Copilot Studio and Azure AI services. Supports rapid prototyping, orchestration, and integration with enterprise systems. Enables fusion teams to deliver task‑specific copilots quickly.",
+    categories: ["ai-application"],
+    types: ["code"],
+    visibility: "public",
+    link: "https://github.com/Azure/Copilot-Studio-and-Azure/tree/main"
+  },
+  {
+    title: "Multi‑Agent Banking Assistant (Agent Sample)",
+    description: "Conversational multi‑agent banking assistant integrating securely with core systems. Supports account inquiries, transactions, payments, and dispute initiation. Enables compliant and extensible digital banking experiences.",
+    categories: ["ai-agent"],
+    types: ["code"],
+    visibility: "public",
+    link: "https://github.com/Azure-Samples/agent-openai-python-banking-assistant"
+  },
+  {
+    title: "Power BI P SKU to Fabric F SKU Migration LevelUp",
+    description: "A comprehensive guide covering the different types of migration scenarios for P to F SKU migration, and how to scope and plan for each scenario end-to-end, including cross-tenant migration",
+    categories: ["analytics"],
+    types: ["design guidance", "level up"],
+    visibility: "private",
+    link: "https://github.com/customer-success-microsoft/Trinity-Framework/tree/main/Power%20BI%20P%20SKU%20to%20Fabric%20F%20SKU%20Migration/P%20to%20F%20SKU%20LevelUp"
+  },
+  {
+    title: "Hotel Search & Recommendation - Cosmos DB + Azure OpenAI Demo (Deployable)",
+    description: "Demo showcasing how modern databases can be enhanced with AI-driven search, relevance, and recommendations to deliver richer, more personalized discovery experiences.",
+    categories: ["ai-application", "data"],
+    types: ["deployabledemo"],
+    visibility: "private",
+    link: "https://aka.ms/hotelsearchcosmosaideployabledemo"
+  },
+  {
+    title: "Hotel Search & Recommendation - Cosmos DB + Azure OpenAI Demo (Online)",
+    description: "Online Demo showcasing how modern databases can be enhanced with AI-driven search, relevance, and recommendations to deliver richer, more personalized discovery experiences.",
+    categories: ["ai-application", "data"],
+    types: ["onlinedemo"],
+    visibility: "public",
+    link: "https://aka.ms/hotelsearchcosmosaionlinedemo"
+  },
+  {
+    title: "Investment Analysis Multi-Agent System (Online)",
+    description: "Multi‑agent investment analysis workflow using the Microsoft Agent Framework. Automates due‑diligence synthesis, competitive analysis, and risk scoring. Produces investor‑ready summaries for PE/VC, corporate development, and strategic finance teams.",
+    categories: ["ai-agent"],
+    types: ["onlinedemo"],
+    visibility: "public",
+    link: "https://aka.ms/investaionlinedemo"
+  },
+  {
+    title: "Investment Analysis Multi-Agent System (Deployable)",
+    description: "Multi‑agent investment analysis workflow using the Microsoft Agent Framework. Automates due‑diligence synthesis, competitive analysis, and risk scoring. Produces investor‑ready summaries for PE/VC, corporate development, and strategic finance teams.",
+    categories: ["ai-agent"],
+    types: ["deployabledemo"],
+    visibility: "public",
+    link: "https://github.com/Azure-Samples/Agentic-AI-Investment-Analysis-Sample"
+  }
+];
+
+// ====================================================================
+// Icon definitions for different types
+// ====================================================================
+const typeIcons = {
+  'code': '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>',
+  'design guidance': '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="1"></circle><path d="M12 1v6m0 6v6"></path><path d="M4.22 4.22l4.24 4.24m2.12 2.12l4.24 4.24"></path><path d="M1 12h6m6 0h6"></path><path d="M4.22 19.78l4.24-4.24m2.12-2.12l4.24-4.24"></path></svg>',
+  'migration guidance': '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10"></path></svg>',
+  'blog': '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"></path><line x1="10" y1="5" x2="14" y2="5"></line><line x1="10" y1="9" x2="14" y2="9"></line><line x1="10" y1="13" x2="14" y2="13"></line></svg>',
+  'public documentation': '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"></path></svg>',
+  'level up': '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path></svg>',
+  'onlinedemo': '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>',
+  'deployabledemo': '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>'
+};
+
+// ====================================================================
+// Color mapping for different types
+// ====================================================================
+const typeColorMap = {
+  'code': 'code',
+  'design guidance': 'design',
+  'migration guidance': 'migration',
+  'blog': 'blog',
+  'public documentation': 'documentation',
+  'level up': 'levelup',
+  'onlinedemo': 'demo',
+  'deployabledemo': 'demo'
+};
+
+// ====================================================================
+// Helper: Format type name for display (e.g., "design guidance" -> "Design Guidance")
+// ====================================================================
+function formatType(type) {
+  // Special mapping for categories and types
+  const specialMappings = {
+    'ai-application': 'AI Application',
+    'ai-agent': 'AI Agent',
+    'onlinedemo': 'Demo (Online)',
+    'deployabledemo': 'Demo (Deployable)'
+  };
+  
+  if (specialMappings[type]) {
+    return specialMappings[type];
+  }
+  
+  return type
+    .split(' ')
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(' ');
+}
+
+// ====================================================================
+// Helper: Get icon SVG for a type
+// ====================================================================
+function getIconForType(type) {
+  return typeIcons[type.toLowerCase()] || '';
+}
+
+// ====================================================================
+// Render cards from data array
+// ====================================================================
+function renderCards() {
+  const gallery = document.getElementById('gallery');
+  gallery.innerHTML = '';
+
+  cardsData.forEach(card => {
+    const article = document.createElement('article');
+    article.className = 'card';
+    article.dataset.category = card.categories.join(', ');
+    article.dataset.types = card.types.join(', ');
+    article.dataset.visibility = card.visibility;
+
+    const tagsHTML = card.types
+      .map(type => {
+        const icon = getIconForType(type);
+        const colorClass = typeColorMap[type.toLowerCase()] || 'code';
+        return `<span class="tag ${colorClass}"><span class="tag-icon">${icon}</span>${formatType(type)}</span>`;
+      })
+      .join('');
+
+    const categoriesHTML = card.categories
+      .map(cat => `<span class="category">${formatType(cat)}</span>`)
+      .join('');
+
+    const visibilityIcon = card.visibility === 'public' 
+      ? '<svg class="visibility-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>'
+      : '<svg class="visibility-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>';
+
+    article.innerHTML = `
+      <h3>${card.title}</h3>
+      <p class="desc">${card.description}</p>
+      <div class="tags">${tagsHTML}</div>
+      <div class="meta">
+        ${categoriesHTML}
+        <span class="visibility-badge" title="${card.visibility}">${visibilityIcon}</span>
+        <a class="find-more" href="${card.link}" target="_blank">Know More</a>
+      </div>
+    `;
+
+    gallery.appendChild(article);
+  });
+}
+
+// ====================================================================
+// Initialize on page load
+// ====================================================================
+document.addEventListener('DOMContentLoaded', () => {
+  const searchInput   = document.getElementById('searchInput');
+  const resetBtn      = document.getElementById('resetFilters');
+  const noResultsEl   = document.getElementById('noResults');
+  const allCheckboxes = Array.from(document.querySelectorAll('input[type="checkbox"]'));
+
+  const normalize = (s) => (s || '').toLowerCase().trim();
+  const splitList = (raw) => normalize(raw).split(',').map(s => s.trim()).filter(Boolean);
+
+  const getChecked = (name) =>
+    Array.from(document.querySelectorAll(`input[name="${name}"]:checked`))
+      .map(cb => normalize(cb.value));
+
+  // Parse list from attributes
+  const parseTypes = (el) => splitList(el.dataset.types ?? el.dataset.type ?? '');
+  const parseCategories = (el) => splitList(el.dataset.category ?? '');
+  const parseVisibility = (el) => normalize(el.dataset.visibility ?? '');
+
+  // Render cards from data
+  renderCards();
+  let cards = Array.from(document.querySelectorAll('.card'));
+
+  function applyFilters() {
+    const term          = normalize(searchInput.value);
+    const selCats       = getChecked('category');
+    const selTypes      = getChecked('type');
+    const selVisibility = getChecked('visibility');
+
+    let shown = 0;
+
+    cards.forEach(card => {
+      const title       = normalize(card.querySelector('h3')?.textContent);
+      const cardCats    = parseCategories(card);
+      const cardTypes   = parseTypes(card);
+      const cardVis     = parseVisibility(card);
+
+      // Title contains (live search)
+      const matchText = !term || title.includes(term);
+
+      // Category OR logic
+      const matchCat  = selCats.length === 0 || cardCats.some(c => selCats.includes(c));
+
+      // Type OR logic
+      const matchType = selTypes.length === 0 || cardTypes.some(t => selTypes.includes(t));
+
+      // Visibility OR logic
+      const matchVis  = selVisibility.length === 0 || selVisibility.includes(cardVis);
+
+      const show = matchText && matchCat && matchType && matchVis;
+      card.classList.toggle('hidden', !show);
+      if (show) shown++;
+    });
+
+    noResultsEl.classList.toggle('hidden', shown !== 0);
+  }
+
+  // Live search + checkbox filters
+  searchInput.addEventListener('input', applyFilters);
+  allCheckboxes.forEach(cb => cb.addEventListener('change', applyFilters));
+
+  // Clear filters
+  resetBtn?.addEventListener('click', () => {
+    searchInput.value = '';
+    allCheckboxes.forEach(cb => cb.checked = false);
+    applyFilters();
+  });
+
+  // Initial render
+  applyFilters();
+});
+</script>
+
+
+
+</body></html>

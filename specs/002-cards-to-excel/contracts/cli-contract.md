@@ -69,19 +69,20 @@ Error: Output directory does not exist: ./exports/
 |----------|-------|
 | Format | .xlsx (Office Open XML) |
 | Sheet Name | "Cards" |
-| Row 1 | Header: title, description, categories, types, visibility, link |
+| Row 1 | Header: title, description, categories, types, visibility, link, hidden |
 | Rows 2-N | Card data (one row per card) |
 
 ### Column Details
 
 | Column | Width | Content |
-|--------|-------|---------|
+|--------|-------|---------||
 | A (title) | Auto | Card title |
 | B (description) | Auto | Card description |
 | C (categories) | Auto | Comma-separated categories |
 | D (types) | Auto | Comma-separated types |
 | E (visibility) | Auto | "public" or "private" |
 | F (link) | Auto | URL string |
+| G (hidden) | Auto | "true" or "false" |
 
 ## Usage Examples
 

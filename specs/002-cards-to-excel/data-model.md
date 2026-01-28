@@ -17,6 +17,7 @@ Represents a solution catalog entry read from cards.json.
 | types | string[] | Yes | Asset types (code, design guidance, migration guidance, blog, public documentation, level up, onlinedemo, deployabledemo) |
 | visibility | string | Yes | Access level (public, private) |
 | link | string | Yes | URL to the solution resource (may be empty string) |
+| hidden | boolean | No | Whether card is hidden from catalog display (defaults to false) |
 
 **Source**: `src/data/cards.json`
 
@@ -32,6 +33,7 @@ Represents a single row in the exported Excel file.
 | types | string | Card.types.join(", ") |
 | visibility | string | Direct copy from Card.visibility |
 | link | string | Direct copy from Card.link |
+| hidden | string | Card.hidden === true ? "true" : "false" |
 
 ### ExcelWorkbook (Output)
 

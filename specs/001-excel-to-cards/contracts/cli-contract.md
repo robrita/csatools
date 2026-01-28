@@ -108,6 +108,7 @@ Warning: Excel file contains no data rows
 | types | Yes | Comma-separated type values |
 | visibility | Yes | "public" or "private" |
 | link | Yes | URL or empty string |
+| hidden | No | "true" or "false" (defaults to false if missing) |
 
 ### Multi-value Fields
 
@@ -131,7 +132,8 @@ Categories and types may contain multiple values separated by commas:
     "categories": ["data", "analytics"],
     "types": ["code", "design guidance"],
     "visibility": "public",
-    "link": "https://github.com/..."
+    "link": "https://github.com/...",
+    "hidden": true
   }
 ]
 ```

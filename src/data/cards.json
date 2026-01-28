@@ -1,0 +1,441 @@
+[
+  {
+    "title": "Metadata Driven Data Ingestion Framework",
+    "description": "Framework for automating metadata driven ingestion pipelines for enterprise data solutions.",
+    "categories": [
+      "analytics"
+    ],
+    "types": [
+      "code",
+      "design guidance",
+      "level up"
+    ],
+    "visibility": "private",
+    "link": "https://github.com/customer-success-microsoft/Trinity-Framework/tree/main/Lakehouse%20Implementation/data_ingestion",
+    "hidden": true
+  },
+  {
+    "title": "Metadata Driven Data Validation Framework",
+    "description": "Framework for automating metadata driven validation to validate the ingestion.",
+    "categories": [
+      "analytics"
+    ],
+    "types": [
+      "code",
+      "design guidance"
+    ],
+    "visibility": "private",
+    "link": "https://github.com/customer-success-microsoft/Trinity-Framework/tree/main/Lakehouse%20Implementation/data_validation",
+    "hidden": true
+  },
+  {
+    "title": "Data Profiling - Understand your data",
+    "description": "Code to help understand data by analyzing data patterns, distributions, and anomalies.",
+    "categories": [
+      "analytics"
+    ],
+    "types": [
+      "code"
+    ],
+    "visibility": "private",
+    "link": "https://github.com/customer-success-microsoft/Trinity-Framework/tree/main/Lakehouse%20Implementation/data_profiling",
+    "hidden": true
+  },
+  {
+    "title": "NoSQL Migration - Migrating to Azure Cosmos DB",
+    "description": "Migrating from NoSQL Databases to Azure Cosmos DB e.g. Native Mongo to vCore, Cassandra to Cassandra MI",
+    "categories": [
+      "data"
+    ],
+    "types": [
+      "code",
+      "migration guidance"
+    ],
+    "visibility": "private",
+    "link": "https://github.com/customer-success-microsoft/Trinity-Framework/blob/main/NoSQL%20Data%20Migration/README.md",
+    "hidden": true
+  },
+  {
+    "title": "Metadata Driven Transformation Framework",
+    "description": "Metadata driven framework for automating the transformation and enrichment for the lakehouse.",
+    "categories": [
+      "analytics"
+    ],
+    "types": [
+      "code",
+      "design guidance"
+    ],
+    "visibility": "private",
+    "link": "https://github.com/customer-success-microsoft/Trinity-Framework/tree/main/Lakehouse%20Implementation",
+    "hidden": true
+  },
+  {
+    "title": "P to F SKU Migration Guidance",
+    "description": "Discovery script, guidance for migrating for various Power BI P to F SKU for different scenarions e.g. .",
+    "categories": [
+      "analytics"
+    ],
+    "types": [
+      "code",
+      "migration guidance"
+    ],
+    "visibility": "private",
+    "link": "https://github.com/customer-success-microsoft/Trinity-Framework/tree/main/Power%20BI%20P%20SKU%20to%20Fabric%20F%20SKU%20Migration",
+    "hidden": true
+  },
+  {
+    "title": "AWS to Azure Migration Guide",
+    "description": "Discovery Scripts, Questionaire, Seamless migration from AWS to Azure covering various databases & Analytics.",
+    "categories": [
+      "data",
+      "analytics"
+    ],
+    "types": [
+      "code",
+      "migration guidance"
+    ],
+    "visibility": "private",
+    "link": "https://github.com/customer-success-microsoft/Trinity-Framework/blob/main/Aws%20to%20Azure%20Migration/README.md",
+    "hidden": true
+  },
+  {
+    "title": "Designing Medallion Architecture",
+    "description": "Best practices and guidance while designing a medalian architechture in Azure and Fabric.",
+    "categories": [
+      "analytics"
+    ],
+    "types": [
+      "design guidance"
+    ],
+    "visibility": "private",
+    "link": "https://github.com/customer-success-microsoft/Trinity-Framework/tree/main/Designing%20Medallion%20Architecture",
+    "hidden": true
+  },
+  {
+    "title": "Tableau to Power BI Migration",
+    "description": "Best practices and guidance while designing a medalian architechture in Azure and Fabric.",
+    "categories": [
+      "analytics"
+    ],
+    "types": [
+      "migration guidance"
+    ],
+    "visibility": "private",
+    "link": "https://github.com/customer-success-microsoft/Trinity-Framework/blob/main/Tableau%20to%20Power%20BI%20Migration/README.md",
+    "hidden": true
+  },
+  {
+    "title": "Datamart Backup End Of Life (EOL)",
+    "description": "Migrating Power BI Datamart to Fabric Datawarehouse due to Power BI End of Life.",
+    "categories": [
+      "analytics"
+    ],
+    "types": [
+      "code"
+    ],
+    "visibility": "private",
+    "link": "https://github.com/customer-success-microsoft/Trinity-Framework/blob/main/Utility/Datamart%20backup%20EOL/README.md",
+    "hidden": true
+  },
+  {
+    "title": "Monitoring Utility for Azure Database for PostgreSQL",
+    "description": "Monitoring Azure PostgreSQL using dashboards though a single pane of glass.",
+    "categories": [
+      "data"
+    ],
+    "types": [
+      "code"
+    ],
+    "visibility": "private",
+    "link": "https://github.com/customer-success-microsoft/Trinity-Framework/blob/main/Utility/Monitoring%20utility%20for%20Azure%20database%20for%20PostgreSQL/README.md",
+    "hidden": true
+  },
+  {
+    "title": "PII Identification and Annonymization",
+    "description": "Code for identifying PII data and anomyzing using different statergy.",
+    "categories": [
+      "analytics"
+    ],
+    "types": [
+      "code"
+    ],
+    "visibility": "private",
+    "link": "",
+    "hidden": true
+  },
+  {
+    "title": "Metadata Driven Data Ingestion Framework in Fabric - Blog",
+    "description": "Walk through the key components of metadata driven ingestion pipelines for enterprise data solutions.",
+    "categories": [
+      "analytics"
+    ],
+    "types": [
+      "blog"
+    ],
+    "visibility": "public",
+    "link": "https://blog.fabric.microsoft.com/en-us/blog/demystifying-data-ingestion-in-fabric-fundamental-components-for-ingesting-data-into-a-fabric-lakehouse-using-fabric-data-pipelines",
+    "hidden": true
+  },
+  {
+    "title": "Metadata Driven Data Lakehouse implementation in Fabric - Blog",
+    "description": "Walk through of end-to-end metadata-driven Lakehouse implemntation using Microsoft Fabric.",
+    "categories": [
+      "analytics"
+    ],
+    "types": [
+      "blog"
+    ],
+    "visibility": "public",
+    "link": "https://blog.fabric.microsoft.com/en-us/blog/playbook-for-metadata-driven-lakehouse-implementation-in-microsoft-fabric",
+    "hidden": true
+  },
+  {
+    "title": "PII Detection and Anonymization with PySpark on Microsoft Fabric - Blog",
+    "description": "explores how to build PII detection and anonymization using PySpark, Microsoft Presidio and Faker library.",
+    "categories": [
+      "analytics"
+    ],
+    "types": [
+      "blog"
+    ],
+    "visibility": "public",
+    "link": "https://blog.fabric.microsoft.com/en-us/blog/privacy-by-design-pii-detection-and-anonymization-with-pyspark-on-microsoft-fabric",
+    "hidden": true
+  },
+  {
+    "title": "Migrate data from DynamoDB to Azure Cosmos DB for NoSQL",
+    "description": "Data migration from Amazon DynamoDB to Azure Cosmos DB for NoSQL",
+    "categories": [
+      "data"
+    ],
+    "types": [
+      "public documentation"
+    ],
+    "visibility": "public",
+    "link": "https://learn.microsoft.com/en-us/azure/cosmos-db/nosql/dynamodb-data-migration-cosmos-db",
+    "hidden": true
+  },
+  {
+    "title": "Connection pooling strategy for Azure PostgreSQL flexible server using PgBouncer",
+    "description": "Discuss different approaches & strategies to use connection pooling using PgBouncer",
+    "categories": [
+      "data"
+    ],
+    "types": [
+      "public documentation"
+    ],
+    "visibility": "public",
+    "link": "https://learn.microsoft.com/en-us/azure/postgresql/flexible-server/concepts-connection-pooling-best-practices",
+    "hidden": true
+  },
+  {
+    "title": "Migrating from Amazon RDS to Azure Database for PostgreSQL",
+    "description": "Discuss different migration approaches & considerations for migrating from Amazon RDS to Azure PostgreSQL.",
+    "categories": [
+      "data"
+    ],
+    "types": [
+      "blog"
+    ],
+    "visibility": "public",
+    "link": "https://techcommunity.microsoft.com/blog/adforpostgresql/seamless-shift-migrating-from-amazon-rds-for-postgresql-to-azure-database-for-po/3997951",
+    "hidden": true
+  },
+  {
+    "title": "Migrating from Amazon RDS for MySQL to Azure Database for MySQL",
+    "description": "Discuss different migration approaches & considerations for migrating from Amazon RDS to Azure MySQL.",
+    "categories": [
+      "data"
+    ],
+    "types": [
+      "blog"
+    ],
+    "visibility": "public",
+    "link": "https://techcommunity.microsoft.com/blog/adformysql/migrating-from-aws-rds-for-mysql-to-azure-database-for-mysql---considerations-an/3755397",
+    "hidden": true
+  },
+  {
+    "title": "Migrating from Amazon RDS to Azure Database for MySQL online using Azure DMS",
+    "description": "Detailed steps involved in performing an online migration from Amazon RDS for MySQL to Azure Database for MySQL using Microsoft DMS.",
+    "categories": [
+      "data"
+    ],
+    "types": [
+      "blog"
+    ],
+    "visibility": "public",
+    "link": "https://techcommunity.microsoft.com/blog/adformysql/migrating-from-amazon-rds-for-mysql-to-azure-database-for-mysql-online-using-azu/3996417",
+    "hidden": true
+  },
+  {
+    "title": "GPT-RAG",
+    "description": "Enterprise-grade GPT assistant framework using Retrieval-Augmented Generation to ground responses on your data. Provides a scalable, secure architecture combining Azure OpenAI and enterprise search. Ideal for knowledge chatbots, support automation, and analytical insights.",
+    "categories": [
+      "ai-application"
+    ],
+    "types": [
+      "code"
+    ],
+    "visibility": "public",
+    "link": "https://github.com/Azure/gpt-rag",
+    "hidden": true
+  },
+  {
+    "title": "LLM Fine-Tuning on Azure",
+    "description": "End‑to‑end toolkit for customizing Azure OpenAI or open‑source LLMs using domain‑specific data. Includes no‑code and code paths, evaluation scripts, and deployment pipelines. Enables safer and more accurate tailored model performance for enterprise workflows.",
+    "categories": [
+      "ai-application"
+    ],
+    "types": [
+      "code"
+    ],
+    "visibility": "public",
+    "link": "https://github.com/Azure/LLM-Fine-Tuning-Azure",
+    "hidden": true
+  },
+  {
+    "title": "Document Processing Accelerator",
+    "description": "Modular pipeline for extracting, classifying, summarizing, and indexing unstructured documents at scale. Integrates OCR, Azure AI, and search for automated ingestion and retrieval. Reduces manual processing friction across claims, invoices, contracts, and records.",
+    "categories": [
+      "ai-application"
+    ],
+    "types": [
+      "code"
+    ],
+    "visibility": "public",
+    "link": "https://github.com/Azure/doc-proc-solution-accelerator/",
+    "hidden": true
+  },
+  {
+    "title": "AI Landing Zones",
+    "description": "Secure, standardized foundation for deploying AI workloads using Well‑Architected and Cloud Adoption Framework guidance. Automates infra provisioning, governance, networking, and compliance. Accelerates production‑ready AI environments across industries.",
+    "categories": [
+      "ai-application"
+    ],
+    "types": [
+      "code"
+    ],
+    "visibility": "public",
+    "link": "https://github.com/Azure/AI-Landing-Zones/tree/main",
+    "hidden": true
+  },
+  {
+    "title": "Copilot Studio",
+    "description": "Unified approach to building secure, scalable enterprise copilots using low‑code Copilot Studio and Azure AI services. Supports rapid prototyping, orchestration, and integration with enterprise systems. Enables fusion teams to deliver task‑specific copilots quickly.",
+    "categories": [
+      "ai-application"
+    ],
+    "types": [
+      "code"
+    ],
+    "visibility": "public",
+    "link": "https://github.com/Azure/Copilot-Studio-and-Azure/tree/main",
+    "hidden": true
+  },
+  {
+    "title": "Multi‑Agent Banking Assistant (Agent Sample)",
+    "description": "Conversational multi‑agent banking assistant integrating securely with core systems. Supports account inquiries, transactions, payments, and dispute initiation. Enables compliant and extensible digital banking experiences.",
+    "categories": [
+      "ai-agent"
+    ],
+    "types": [
+      "code"
+    ],
+    "visibility": "public",
+    "link": "https://github.com/Azure-Samples/agent-openai-python-banking-assistant",
+    "hidden": true
+  },
+  {
+    "title": "Power BI P SKU to Fabric F SKU Migration LevelUp",
+    "description": "A comprehensive guide covering the different types of migration scenarios for P to F SKU migration, and how to scope and plan for each scenario end-to-end, including cross-tenant migration",
+    "categories": [
+      "analytics"
+    ],
+    "types": [
+      "design guidance",
+      "level up"
+    ],
+    "visibility": "private",
+    "link": "https://github.com/customer-success-microsoft/Trinity-Framework/tree/main/Power%20BI%20P%20SKU%20to%20Fabric%20F%20SKU%20Migration/P%20to%20F%20SKU%20LevelUp",
+    "hidden": true
+  },
+  {
+    "title": "Hotel Search & Recommendation - Cosmos DB + Azure OpenAI Demo (Deployable)",
+    "description": "Demo showcasing how modern databases can be enhanced with AI-driven search, relevance, and recommendations to deliver richer, more personalized discovery experiences.",
+    "categories": [
+      "ai-application",
+      "data"
+    ],
+    "types": [
+      "deployabledemo"
+    ],
+    "visibility": "private",
+    "link": "https://aka.ms/hotelsearchcosmosaideployabledemo",
+    "hidden": true
+  },
+  {
+    "title": "Hotel Search & Recommendation - Cosmos DB + Azure OpenAI Demo (Online)",
+    "description": "Online Demo showcasing how modern databases can be enhanced with AI-driven search, relevance, and recommendations to deliver richer, more personalized discovery experiences.",
+    "categories": [
+      "ai-application",
+      "data"
+    ],
+    "types": [
+      "onlinedemo"
+    ],
+    "visibility": "public",
+    "link": "https://aka.ms/hotelsearchcosmosaionlinedemo",
+    "hidden": true
+  },
+  {
+    "title": "Investment Analysis Multi-Agent System (Online)",
+    "description": "Multi‑agent investment analysis workflow using the Microsoft Agent Framework. Automates due‑diligence synthesis, competitive analysis, and risk scoring. Produces investor‑ready summaries for PE/VC, corporate development, and strategic finance teams.",
+    "categories": [
+      "ai-agent"
+    ],
+    "types": [
+      "onlinedemo"
+    ],
+    "visibility": "public",
+    "link": "https://aka.ms/investaionlinedemo",
+    "hidden": true
+  },
+  {
+    "title": "Investment Analysis Multi-Agent System (Deployable)",
+    "description": "Multi‑agent investment analysis workflow using the Microsoft Agent Framework. Automates due‑diligence synthesis, competitive analysis, and risk scoring. Produces investor‑ready summaries for PE/VC, corporate development, and strategic finance teams.",
+    "categories": [
+      "ai-agent"
+    ],
+    "types": [
+      "deployabledemo"
+    ],
+    "visibility": "public",
+    "link": "https://github.com/Azure-Samples/Agentic-AI-Investment-Analysis-Sample",
+    "hidden": true
+  },
+  {
+    "title": "AgentRob - Real-time AI Workshop Co-Host",
+    "description": "Real-time AI co-host application for enterprise workshops using Azure OpenAI. Features voice and text interaction, workshop facilitation, and engagement prompts for training sessions on AI apps and agents.",
+    "categories": [
+      "ai-agent"
+    ],
+    "types": [
+      "code",
+      "deployabledemo"
+    ],
+    "visibility": "public",
+    "link": "https://github.com/robrita/AgentRob"
+  },
+  {
+    "title": "Unified Azure Voice Playground",
+    "description": "A Streamlit-based playground for Azure Speech Services - create custom voices using your audio samples, manage speaker profiles, and synthesize personalized speech",
+    "categories": [
+      "ai-application"
+    ],
+    "types": [
+      "code"
+    ],
+    "visibility": "public",
+    "link": "https://github.com/robrita/Unified-Azure-Voice-Playground"
+  }
+]

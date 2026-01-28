@@ -22,6 +22,7 @@ The target JSON structure for each catalog entry. Matches existing `src/data/car
 | types | string[] | Yes | Values in allowed list | Content type tags for filtering |
 | visibility | string | Yes | "public" or "private" | Access level indicator |
 | link | string | No | URL or empty string | Resource URL (empty for unreleased) |
+| hidden | boolean | No | true or false | Whether card is hidden from catalog display |
 
 **Example**:
 ```json
@@ -31,7 +32,8 @@ The target JSON structure for each catalog entry. Matches existing `src/data/car
   "categories": ["ai-application"],
   "types": ["code"],
   "visibility": "public",
-  "link": "https://github.com/Azure/gpt-rag"
+  "link": "https://github.com/Azure/gpt-rag",
+  "hidden": true
 }
 ```
 
@@ -49,6 +51,7 @@ Raw row data extracted from Excel spreadsheet.
 | types | types | Split by comma, trim each, lowercase |
 | visibility | visibility | Trim, lowercase |
 | link | link | Trim whitespace |
+| hidden | hidden | Trim, lowercase, convert "true"/"yes" to boolean true |
 
 **Header Matching**: Case-insensitive (e.g., "Title", "TITLE", "title" all map to `title`)
 
@@ -117,6 +120,10 @@ Summary structure returned after processing.
 **Visibility** (warn if not in list):
 - `public`
 - `private`
+
+**Hidden** (optional, defaults to false):
+- `true` or `yes` → boolean true
+- `false`, `no`, or empty → field omitted (defaults to false)
 
 ### Normalization
 

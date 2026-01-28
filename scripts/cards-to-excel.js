@@ -21,7 +21,7 @@ import * as XLSX from 'xlsx';
 const CARDS_JSON_PATH = 'src/data/cards.json';
 const DEFAULT_OUTPUT_PATH = './cards-export.xlsx';
 const SHEET_NAME = 'Cards';
-const HEADERS = ['title', 'description', 'categories', 'types', 'visibility', 'link'];
+const HEADERS = ['title', 'description', 'categories', 'types', 'visibility', 'link', 'hidden'];
 
 /**
  * Read and parse cards.json file
@@ -76,7 +76,8 @@ function transformToRows(cards) {
       Array.isArray(card.categories) ? card.categories.join(', ') : (card.categories || ''),
       Array.isArray(card.types) ? card.types.join(', ') : (card.types || ''),
       card.visibility || '',
-      card.link || ''
+      card.link || '',
+      card.hidden === true ? 'true' : 'false'
     ];
     rows.push(row);
   }
