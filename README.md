@@ -1,33 +1,29 @@
 ## Solution Catalog (Vite)
 
-This workspace includes a Vite-based static site under solution-catalog.
-
-### Project location
-- [solution-catalog/](solution-catalog)
+A Vite-based static site for browsing the solution catalog.
 
 ### Local development
 1. Install dependencies:
-	- In [solution-catalog/package.json](solution-catalog/package.json), run `npm install`.
+   ```bash
+   npm install
+   ```
 2. Start the dev server:
-	- Run `npm run dev`.
+   ```bash
+   npm run dev
+   ```
 3. Open the local URL shown in the terminal.
 
 ### Production build
 1. Run `npm run build`.
-2. The static output is generated in [solution-catalog/dist/](solution-catalog/dist/).
+2. The static output is generated in [dist/](dist/).
 
 ### GitHub Pages deployment
-#### Option A: User/Org Pages (root)
-If publishing to `https://<user>.github.io/`, keep the current base path:
-- [solution-catalog/vite.config.js](solution-catalog/vite.config.js) uses `base: './'` for relative paths.
+The project is configured for GitHub Pages at `https://<user>.github.io/csatools/`:
+- [vite.config.js](vite.config.js) uses `base: '/csatools/'`.
 
-#### Option B: Project Pages (subpath)
-If publishing to `https://<user>.github.io/<repo>/`, set `base` to `'/<repo>/'` in:
-- [solution-catalog/vite.config.js](solution-catalog/vite.config.js)
+**Automatic deployment:** Push to `main` triggers the [deploy workflow](.github/workflows/deploy.yml) which builds and deploys to GitHub Pages.
 
-Then build and deploy the `dist` folder:
-1. Run `npm run build`.
-2. Push the contents of [solution-catalog/dist/](solution-catalog/dist/) to the `gh-pages` branch, or configure GitHub Actions to deploy the folder.
+**Setup:** In your repo settings, go to **Settings → Pages → Source** and select **GitHub Actions**.
 
 ### Data updates
 Card data is stored in JSON:
@@ -45,9 +41,15 @@ To specify a custom output path:
 npm run export-cards -- ./path/to/output.xlsx
 ```
 
+### Import cards from Excel
+To import cards from an Excel file:
+```bash
+npm run import-cards -- ./path/to/input.xlsx
+```
+
 ### Customization
 Styles live in:
-- [solution-catalog/src/styles.css](solution-catalog/src/styles.css)
+- [src/styles.css](src/styles.css)
 
 Main entry:
-- [solution-catalog/src/main.js](solution-catalog/src/main.js)
+- [src/main.js](src/main.js)
