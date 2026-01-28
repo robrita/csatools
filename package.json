@@ -1,0 +1,17 @@
+{
+  "name": "solution-catalog",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "export-cards": "node scripts/cards-to-excel.js",
+    "import-cards": "node scripts/excel-to-cards.js"
+  },
+  "devDependencies": {
+    "vite": "^5.4.10",
+    "xlsx": "^0.18.5"
+  }
+}
