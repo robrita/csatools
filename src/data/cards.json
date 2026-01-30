@@ -437,5 +437,17 @@
     ],
     "visibility": "public",
     "link": "https://github.com/robrita/Unified-Azure-Voice-Playground"
+  },
+  {
+    "title": "LLM Evaluation Tool",
+    "description": "Compare multiple LLM models in parallel with standard RAG evaluation metrics. Configure up to 5 models, upload grounding documents, generate question datasets, and view comprehensive performance comparisons.",
+    "categories": [
+      "ai-application"
+    ],
+    "types": [
+      "code"
+    ],
+    "visibility": "public",
+    "link": "https://github.com/robrita/llm-migration"
   }
 ]
